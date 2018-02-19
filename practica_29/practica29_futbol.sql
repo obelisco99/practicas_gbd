@@ -72,3 +72,18 @@ INSERT INTO goles(id_equipo_casa, id_equipo_fuera, minuto, descripcion, id_jugad
 INSERT INTO goles(id_equipo_casa, id_equipo_fuera, minuto, descripcion, id_jugador)  VALUES (1, 2, INTERVAL '70:00' MINUTE TO SECOND, 'Jugada personal', 3);
 
 ---------------------------------------------------------
+
+UPDATE equipos SET nombre='Real Cascorro' WHERE nombre='Cascorro  F.C';
+
+UPDATE  equipos SET aforo=aforo+500 WHERE aforo=aforo;
+
+COMMIT;
+
+DELETE from equipos where id_equipo=id_equipo;
+/* todas las tablas menos jugadores quedan vacias al ser estas dependientes de la clave primaria de equipo, id_equipo. */
+
+ROLLBACK;
+
+ALTER TABLE equipos ADD (provincia VARCHAR2(40));
+
+UPDATE equipos SET provincia='Zamora';
