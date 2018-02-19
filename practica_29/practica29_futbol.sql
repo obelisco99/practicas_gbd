@@ -30,8 +30,8 @@ CREATE TABLE partidos(
 );
 
 CREATE TABLE goles(
-  id_equipo_casa NUMBER(2) CONSTRAINT goles_uk1 UNIQUE ,
-  id_equipo_fuera NUMBER(2) CONSTRAINT goles_uk2 UNIQUE ,
+  id_equipo_casa NUMBER(2) ,
+  id_equipo_fuera NUMBER(2) ,
   minuto INTERVAL DAY TO SECOND ,
   descripcion VARCHAR2(2000),
   id_jugador NUMBER(3) CONSTRAINT goles_fk2 REFERENCES jugadores(id_jugador) ON DELETE CASCADE ,
@@ -40,11 +40,35 @@ CREATE TABLE goles(
     REFERENCES partidos(id_equipo_casa, id_equipo_fuera) ON DELETE CASCADE
 );
 
+---------------------------------------------------------
+
 ALTER TABLE equipos MODIFY(
   estadio CONSTRAINT equipos_nn3 NOT NULL,
   aforo CONSTRAINT equipos_nn4 NOT NULL
   );
 
-ALTER TABLE equipos MODIFY fecha_fundacion DATE
+ALTER TABLE equipos MODIFY fecha_fundacion DATE;
 
-ALTER TABLE jugadores drop CONSTRAINT jugadores_nn1
+ALTER TABLE jugadores drop CONSTRAINT jugadores_nn1;
+
+---------------------------------------------------------
+
+INSERT INTO equipos(id_equipo, nombre, estadio, aforo, fecha_fundacion, ciudad) VALUES (1, 'Cascorro  F.C', 'la Arenera', '4000', '01/01/1961', 'Cascorro de Arriba');
+
+INSERT INTO equipos(id_equipo, nombre, estadio, aforo, fecha_fundacion, ciudad) VALUES (2, 'Athletico de Matalasleñas', 'Cerro Galvez', '1200', '12/03/1970', 'Matalasleñas');
+
+INSERT INTO jugadores(id_jugador, nombre, fecha_nac, id_equipo) VALUES (1, 'Amoribia', '20/01/1990', 1);
+
+INSERT INTO jugadores(id_jugador, nombre, fecha_nac, id_equipo) VALUES (2, 'Garcia', '', 2);
+
+INSERT INTO jugadores(id_jugador, nombre, fecha_nac, id_equipo) VALUES (3, 'Pedrosa', '12/09/1993', 1);
+
+INSERT INTO partidos(id_equipo_casa, id_equipo_fuera, fecha, goles_casa, goles_fuera, observaciones) VALUES (1, 2, '05/11/2016', '2', '1', '');
+
+INSERT INTO goles(id_equipo_casa, id_equipo_fuera, minuto, descripcion, id_jugador)  VALUES (1, 2, INTERVAL '23:00' MINUTE TO SECOND, 'Falta directa', 1);
+
+INSERT INTO goles(id_equipo_casa, id_equipo_fuera, minuto, descripcion, id_jugador)  VALUES (1, 2, INTERVAL '40:00' MINUTE TO SECOND, 'Penalti', 2);
+
+INSERT INTO goles(id_equipo_casa, id_equipo_fuera, minuto, descripcion, id_jugador)  VALUES (1, 2, INTERVAL '70:00' MINUTE TO SECOND, 'Jugada personal', 3);
+
+---------------------------------------------------------
