@@ -87,3 +87,7 @@ ROLLBACK;
 ALTER TABLE equipos ADD (provincia VARCHAR2(40));
 
 UPDATE equipos SET provincia='Zamora';
+
+DROP TABLE partidos CASCADE CONSTRAINTS
+
+
